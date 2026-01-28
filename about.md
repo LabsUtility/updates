@@ -7,6 +7,6 @@ Thanks for checking out **LabsUtilty**! Below is information and common question
 LabsUtility is a muli-use / purpose bot made for Discord! The bot contains commands for developers, server staff, and regular community members! The bot can be added in two ways:
 - `Added as a bot to a server`
 - `Added as a authorized app to a user` <br/>
-↳ (which allows for the user of many commands anywhere on Discord regardless if the server has the bot!)
-<br/>
+↳ (which allows for the user of many commands anywhere on Discord regardless if the server has the bot!)<br/>
+
 **The availible commands and uses can be found on the official repository**
