@@ -8,6 +8,6 @@ This update includes the following changes:
 - Updated embed colors to a sleek solid grey
 - Made changes to the main bot genertive api server so it's faster
 - Fixed the `/diff` command to actually show the difference between the two strins
-<br></br>
+<
 ## Update: Beta 1.4
 - Released this site to a new link under a new repository
