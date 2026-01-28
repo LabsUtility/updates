@@ -16,7 +16,7 @@
       margin: 0;
       font-family: Inter, system-ui, sans-serif;
       background: #36393F; /* Discord dark background */
-      color: #DCDDDE; /* light text */
+      color: #DCDDDE;
     }
 
     /* TOP NAV */
@@ -59,10 +59,24 @@
       transition: none; /* disable hover transitions */
     }
 
-    /* remove underline and hover effects */
-    .tab::after { display: none; }
-    .tab:hover { transform: none; }
-    .tab.active { color: #B9BBBE; } /* static color */
+    /* ACTIVE TAB NEON CIRCLE */
+    .tab.active::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 50px;
+      box-shadow: 0 0 12px #00F0FFaa, 0 0 24px #00F0FF88, 0 0 36px #00F0FF55;
+      animation: neonPulse 2s infinite;
+      z-index: -1;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: 0 0 12px #00F0FFaa, 0 0 24px #00F0FF88, 0 0 36px #00F0FF55; }
+      50% { box-shadow: 0 0 20px #00F0FFaa, 0 0 36px #00F0FF88, 0 0 48px #00F0FF55; }
+    }
 
     /* MAIN CONTENT */
     main {
