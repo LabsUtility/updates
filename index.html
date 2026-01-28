@@ -10,25 +10,15 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
+    * { box-sizing: border-box; }
 
-    body, html {
-      height: 100%;
+    body {
+      margin: 0;
       font-family: Inter, system-ui, sans-serif;
       color: #DCDDDE;
-      overflow: hidden; /* prevent body scroll */
-    }
-
-    /* STATIC BACKGROUND IMAGE */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('images/background.png') no-repeat center center fixed;
+      background: url('images/background.jpg') no-repeat center center fixed;
       background-size: cover;
-      z-index: -2;
-      filter: brightness(0.6); /* darken image slightly for contrast */
+      overflow-x: hidden;
     }
 
     /* TOP BAR */
@@ -42,7 +32,7 @@
       padding: 20px 40px;
       background: rgba(47,49,54,0.95);
       border-bottom: 1px solid #1E2124;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* slight 3D effect */
+      backdrop-filter: blur(6px);
     }
 
     .logo {
@@ -68,19 +58,20 @@
       text-shadow: 0 0 8px #00F0FF88;
     }
 
-    /* SCROLLABLE CONTENT CONTAINER */
+    /* MAIN CONTENT PANEL */
     main {
       max-width: 900px;
       margin: 40px auto;
-      background: rgba(32,34,37,0.95); /* slightly transparent for depth */
+      background: rgba(32,34,37,0.95);
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6); /* soft 3D effect */
-      padding: 40px;
-      height: calc(100vh - 120px); /* leave space for header/footer */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      height: calc(100vh - 120px); /* account for header/footer */
       overflow-y: auto;
+      padding: 40px;
+      padding-bottom: 96px; /* prevent footer overlay */
     }
 
-    /* MARKDOWN STYLING */
+    /* MARKDOWN */
     .markdown h1 { font-size: 32px; margin-top: 48px; color: #FFFFFF; }
     .markdown h2 { font-size: 22px; margin-top: 40px; color: #FFFFFF; }
     .markdown h3 { font-size: 18px; margin-top: 32px; color: #FFFFFF; }
@@ -125,7 +116,7 @@
       justify-content: center;
       align-items: center;
       gap: 28px;
-      z-index: 10;
+      z-index: 20;
       box-shadow: 0 0 20px #00F0FFaa;
     }
 
@@ -134,21 +125,6 @@
       height: 22px;
       fill: #fff;
       filter: drop-shadow(0 0 6px #00F0FF);
-    }
-
-    /* SCROLLBAR STYLING */
-    main::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    main::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.2);
-      border-radius: 8px;
-    }
-
-    main::-webkit-scrollbar-thumb {
-      background: #00F0FF88;
-      border-radius: 8px;
     }
   </style>
 </head>
@@ -178,7 +154,8 @@
   const lastUpdated = document.getElementById('lastUpdated');
 
   async function loadMD(file) {
-    const res = await fetch(`${file}?v=${Date.now()}`); // cache-busting
+    // Cache-busting prevents stale markdown
+    const res = await fetch(`${file}?v=${Date.now()}`);
     const text = await res.text();
     content.innerHTML = marked.parse(text);
   }
@@ -188,7 +165,6 @@
     month: 'long',
     day: 'numeric'
   });
-
   lastUpdated.textContent = `Last updated: ${date}`;
 
   loadMD('updates.md');
